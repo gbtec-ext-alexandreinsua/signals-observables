@@ -8,14 +8,15 @@
     </div>
   </div>
   <div style="display: flex; flex-direction: column; gap: 2px">
-    @for (temp of temperatures; track temp; let i = $index){
+    @for (temp of temperatures; track temp; let i = $index){ @if (i <= 6) {
     <span>
-      @if (i == 0){
+      @if (i === 0){
       <h2>{{ temp | number : "1.2-2" }}</h2>
+
       } @else if (i < 6){
       {{ temp | number : "1.2-2" }}
       }
     </span>
-    }
+    } }
   </div>
 </div>

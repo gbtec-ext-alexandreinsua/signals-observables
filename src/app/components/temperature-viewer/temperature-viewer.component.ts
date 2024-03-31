@@ -3,6 +3,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { MatButtonModule } from '@angular/material/button';
+import { RoomTemperature } from '../../model/room-temperature.interface';
 import { TemperatureHistory } from '../../model/temperature-history.interface';
 import { RoomTemperatureService } from '../../services/room-temperature.service';
 import { TemperatureNodeComponent } from '../temperature-node/temperature-node.component';
@@ -16,7 +17,7 @@ import { TemperatureNodeComponent } from '../temperature-node/temperature-node.c
 })
 export class TemperatureViewerComponent implements OnInit {
   historicalTemperatures = signal<Array<TemperatureHistory>>([]);
-  temperatureSubscription: Subscription | undefined;
+  temperatureSubscription!: Subscription;
 
   constructor(private tempService: RoomTemperatureService) {}
 
@@ -30,23 +31,28 @@ export class TemperatureViewerComponent implements OnInit {
 
   startSubscription() {
     this.temperatureSubscription = this.tempService.roomTemperatures$.subscribe(
-      (newTemp: any) => {
-        this.historicalTemperatures.update((x) => {
-          if (newTemp.temperature) {
-            let temperatureIndex = x.find((x) => x.room == newTemp.name);
+      (newTemperature: RoomTemperature) => {
+        this.historicalTemperatures.update((temperatures) => {
+          if (newTemperature.temperature) {
+            let temperatureIndex = temperatures.find(
+              (temperature) => temperature.room === newTemperature.name
+            );
             if (temperatureIndex) {
               temperatureIndex.temperatures = [
-                newTemp.temperature,
+                newTemperature.temperature,
                 ...temperatureIndex.temperatures,
               ];
             } else {
-              x = [
-                ...x,
-                { room: newTemp.name, temperatures: [newTemp.temperature] },
+              temperatures = [
+                ...temperatures,
+                {
+                  room: newTemperature.name,
+                  temperatures: [newTemperature.temperature],
+                },
               ];
             }
           }
-          return x;
+          return temperatures;
         });
       }
     );
