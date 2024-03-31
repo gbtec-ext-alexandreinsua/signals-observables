@@ -1,0 +1,13 @@
+.rooms {
+  display: flex;
+  width: 100%;
+  align-content: stretch;
+  flex-direction: row;
+  gap: 12px;
+  border: 2px solid black;
+  border-radius: 5px;
+
+  .room{
+    width: 200px;
+  }
+}

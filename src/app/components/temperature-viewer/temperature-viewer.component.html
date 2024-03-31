@@ -1,0 +1,27 @@
+<div class="buttons">
+  <button mat-flat-button color="primary" (click)="resetTemperatures()">
+    Reset temperatures
+  </button>
+  @if (this.temperatureSubscription?.closed){
+  <button mat-flat-button color="primary" (click)="startSubscription()">
+    Subscribe
+  </button>
+  } @else {
+  <button mat-flat-button color="primary" (click)="endSubscription()">
+    Unsubscribe
+  </button>
+  }
+  <button mat-flat-button color="primary" (click)="setStatic()">
+    Set to static data
+  </button>
+</div>
+<div class="temperatures">
+  @for (temperature of historicalTemperatures(); track temperature.room){
+  <div class="temperature">
+    <app-temperature-node
+      [temperatures]="temperature.temperatures"
+      [roomName]="temperature.room"
+    ></app-temperature-node>
+  </div>
+  }
+</div>

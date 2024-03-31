@@ -1,0 +1,21 @@
+<div class="rooms">
+  <div class="room">
+    <h2>{{ this.roomName }}</h2>
+    <div>
+      <h4>Statistics</h4>
+      <p>Average: {{ averageTemperature | number : "1.2-2" }}</p>
+      <p>Total amount: {{ totalTemperatureCount }}</p>
+    </div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 2px">
+    @for (temp of temperatures; track temp; let i = $index){
+    <span>
+      @if (i == 0){
+      <h2>{{ temp | number : "1.2-2" }}</h2>
+      } @else if (i < 6){
+      {{ temp | number : "1.2-2" }}
+      }
+    </span>
+    }
+  </div>
+</div>
