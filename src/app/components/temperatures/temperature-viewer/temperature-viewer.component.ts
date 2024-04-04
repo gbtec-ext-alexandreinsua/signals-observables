@@ -3,9 +3,9 @@ import { Component, OnInit, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { MatButtonModule } from '@angular/material/button';
-import { RoomTemperature } from '../../model/room-temperature.interface';
-import { TemperatureHistory } from '../../model/temperature-history.interface';
-import { RoomTemperatureService } from '../../services/room-temperature.service';
+import { RoomTemperature } from '../../../model/room-temperature.interface';
+import { TemperatureHistory } from '../../../model/temperature-history.interface';
+import { RoomTemperatureService } from '../../../services/room-temperature.service';
 import { TemperatureNodeComponent } from '../temperature-node/temperature-node.component';
 
 @Component({

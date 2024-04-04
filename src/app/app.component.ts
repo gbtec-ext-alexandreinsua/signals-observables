@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { TemperatureViewerComponent } from './components/temperature-viewer/temperature-viewer.component';
+import { RouterModule } from '@angular/router';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [TemperatureViewerComponent],
+  imports: [RouterModule, ToolbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

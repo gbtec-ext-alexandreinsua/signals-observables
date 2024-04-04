@@ -7,7 +7,7 @@
       <p>Total amount: {{ totalTemperatureCount }}</p>
     </div>
   </div>
-  <div style="display: flex; flex-direction: column; gap: 2px">
+  <div class="temperature">
     @for (temp of temperatures; track temp; let i = $index){ @if (i <= 6) {
     <span>
       @if (i === 0){
