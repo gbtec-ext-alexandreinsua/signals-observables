@@ -3,23 +3,23 @@ import { Route } from '@angular/router';
 export const appRoutes: Route[] = [
   {
     path: 'home',
-    pathMatch: 'full',
     title: 'home',
     loadComponent: () =>
       import('./modules/home/home.component').then((c) => c.HomeComponent),
   },
+
   {
-    path: 'temperature',
-    pathMatch: 'full',
-    title: 'temperature',
+    path: 'characters',
+    title: 'characters',
     loadComponent: () =>
       import(
-        './components/temperatures/temperature-viewer/temperature-viewer.component'
-      ).then((c) => c.TemperatureViewerComponent),
+        './modules/charaters/character-shell/character-shell.component'
+      ).then((c) => c.CharacterShellComponent),
   },
+
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home',
+    redirectTo: 'characters',
   },
 ];
