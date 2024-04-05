@@ -1,9 +1,11 @@
+:host{
+  padding: 1rem;
+  .characters
+  {
+    width: 20rem;
 
-.characters
-{
-  width: 20rem;
-
-  button {
-    width: 100%;
+    button {
+      width: 100%;
+    }
   }
 }
