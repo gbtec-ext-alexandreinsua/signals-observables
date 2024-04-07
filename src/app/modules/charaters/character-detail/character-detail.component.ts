@@ -1,5 +1,5 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { DataService } from '../../../services/data.service';
 
@@ -10,15 +10,16 @@ import { DataService } from '../../../services/data.service';
   templateUrl: './character-detail.component.html',
   styleUrl: './character-detail.component.scss',
 })
-export class CharacterDetailComponent implements OnInit {
+export class CharacterDetailComponent {
   dataService = inject(DataService);
 
-  character$ = this.dataService.selectedCharacter$;
+  character = this.dataService.selectedCharacter as any;
 
-  info!: string;
-  ngOnInit(): void {
-    this.character$.subscribe((c) => {
-      this.info = `${c.gender}, ${c.status}, Location: ${c.location.name}, Origin: ${c.location.origin}`;
-    });
-  }
+  info = computed(() =>
+    this.character()
+      ? `${this.character()?.gender}, ${this.character()?.status}, Location: ${
+          this.character()?.location.name
+        }, Origin: ${this.character()?.location.origin}`
+      : ''
+  );
 }

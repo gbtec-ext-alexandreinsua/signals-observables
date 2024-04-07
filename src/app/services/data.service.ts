@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import { Injectable, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,21 +9,26 @@ import { BehaviorSubject, combineLatest, map } from 'rxjs';
 export class DataService {
   private ulr = 'https://rickandmortyapi.com/api/character/';
 
-  private characterSelectedSubject = new BehaviorSubject(0);
-  characterSelected$ = this.characterSelectedSubject.asObservable();
+  // 4. Remove the BS
 
   private http = inject(HttpClient);
 
-  characters$ = this.http
+  // 1. Encapsulate response
+  private characters$ = this.http
     .get(this.ulr)
     .pipe(map((data: any) => data.results.map((c: any) => c)));
 
-  selectedCharacter$ = combineLatest([
-    this.characters$,
-    this.characterSelected$,
-  ]).pipe(map(([characters, id]) => characters.find((c: any) => c.id === id)));
+  // 2. Expose a signal for the characters in this service
+  characters = toSignal(this.characters$);
 
+  // 5. Expose a signa for selectedCharacter
+  selectedCharacter = signal(undefined);
+
+  // 7. Remove filter
+
+  // 6. Emit the selected character
   characterSelected(id: any) {
-    this.characterSelectedSubject.next(id);
+    const foundVehicle = this.characters().find((c: any) => c.id === id);
+    this.selectedCharacter.set(foundVehicle);
   }
 }
