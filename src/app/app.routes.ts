@@ -7,7 +7,6 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./modules/home/home.component').then((c) => c.HomeComponent),
   },
-
   {
     path: 'characters',
     title: 'characters',
@@ -16,10 +15,9 @@ export const appRoutes: Route[] = [
         './modules/charaters/character-shell/character-shell.component'
       ).then((c) => c.CharacterShellComponent),
   },
-
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'characters',
+    redirectTo: 'home',
   },
 ];
