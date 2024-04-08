@@ -4,9 +4,15 @@
   </mat-card-header>
   @if (characters$ | async; as characters){
   <mat-card-content>
-    <button mat-button *ngFor="let c of characters" (click)="onSelected(c.id)">
+    @for (c of characters; track $index) {
+    <button
+      mat-button
+      (click)="onSelected(c.id)"
+      [ngClass]="{ selected: c.id === (selectedCharacter$ | async)?.id }"
+    >
       {{ c.name }}
     </button>
+    }
   </mat-card-content>
   } @else {
   <mat-card-content> Ups! No characters found... :'( </mat-card-content>

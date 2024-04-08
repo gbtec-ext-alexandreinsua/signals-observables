@@ -13,10 +13,13 @@ import { DataService } from '../../../services/data.service';
 })
 export class CharacterListComponent {
   pageTitle = 'Characters';
+  isSelected = false;
 
   dataService = inject(DataService);
 
   characters$ = this.dataService.characters$;
+
+  selectedCharacter$ = this.dataService.selectedCharacter$;
 
   onSelected(id: any) {
     this.dataService.characterSelected(id);
