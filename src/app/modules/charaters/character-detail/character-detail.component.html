@@ -17,10 +17,13 @@
     </p>
 
     @if(episodes() ) {
-    <p>
-      @for (ep of episodes(); track ep) { <span>{{ ep.name }}</span
-      >}
-    </p>
+
+    <ul>
+      @for (ep of episodes(); track ep) {
+      <li>{{ ep.name }}</li>
+      }
+    </ul>
+
     }
   </mat-card-content>
 </mat-card>
