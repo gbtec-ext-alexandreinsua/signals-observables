@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
+
+import { filter, forkJoin, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -31,4 +33,15 @@ export class DataService {
     const foundVehicle = this.characters().find((c: any) => c.id === id);
     this.selectedCharacter.set(foundVehicle);
   }
+
+  // 8. Encapsulate.respose
+  private characterEpisodes$ = toObservable(this.selectedCharacter).pipe(
+    filter(Boolean),
+    switchMap((character: any) =>
+      forkJoin(character?.episode.map((link: any) => this.http.get(link)))
+    )
+  );
+
+  // 9 expose signal
+  characterEpisodes = toSignal(this.characterEpisodes$);
 }
