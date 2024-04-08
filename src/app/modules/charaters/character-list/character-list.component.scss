@@ -6,6 +6,9 @@
 
     button {
       width: 100%;
+      &.selected{
+        background-color: tomato;
+      }
     }
   }
 }

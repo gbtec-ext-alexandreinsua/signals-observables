@@ -13,11 +13,14 @@ import { DataService } from '../../../services/data.service';
 })
 export class CharacterListComponent {
   pageTitle = 'Characters';
+  isSelected = false;
 
   dataService = inject(DataService);
 
   // 3. use the signal in the template
   characters = this.dataService.characters;
+
+  selectedCharacter = this.dataService.selectedCharacter as any;
 
   onSelected(id: any) {
     this.dataService.characterSelected(id);
