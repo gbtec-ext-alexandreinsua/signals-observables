@@ -2,9 +2,13 @@
   <mat-card-header>
     <mat-card-title>{{ pageTitle }}</mat-card-title>
   </mat-card-header>
-  @if (characters$ | async; as characters){
+  @if (characters()){
   <mat-card-content>
-    <button mat-button *ngFor="let c of characters" (click)="onSelected(c.id)">
+    <button
+      mat-button
+      *ngFor="let c of characters()"
+      (click)="onSelected(c.id)"
+    >
       {{ c.name }}
     </button>
   </mat-card-content>
