@@ -11,6 +11,13 @@
     <p>
       {{ info }}
     </p>
+
+    @if(characterEpisodes$ | async; as episodes) {
+    <p> 
+      <!-- @for (ep of episodes; track $index) { <span>{{ ep.name }}</span
+      >} -->
+    </p>
+    }
   </mat-card-content>
 </mat-card>
 

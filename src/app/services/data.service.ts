@@ -1,6 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  filter,
+  forkJoin,
+  map,
+  switchMap,
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +28,13 @@ export class DataService {
     this.characters$,
     this.characterSelected$,
   ]).pipe(map(([characters, id]) => characters.find((c: any) => c.id === id)));
+
+  characterEpisodes$ = this.selectedCharacter$.pipe(
+    filter(Boolean),
+    switchMap((character) =>
+      forkJoin(character.episode.map((link: any) => this.http.get(link)))
+    )
+  );
 
   characterSelected(id: any) {
     this.characterSelectedSubject.next(id);
